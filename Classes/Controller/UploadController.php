@@ -22,8 +22,8 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -77,7 +77,7 @@ class UploadController extends ActionController
                 ->setHref($this->returnUrl)
                 ->setTitle(LocalizationUtility::translate('upload.back'))
                 ->setShowLabelText(true)
-                ->setIcon($this->iconFactory->getIcon('actions-caret-left', IconSize::SMALL));
+                ->setIcon($this->iconFactory->getIcon('actions-caret-left', Icon::SIZE_SMALL));
             $buttonBar->addButton($backButton);
         }
     }

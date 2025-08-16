@@ -16,7 +16,7 @@ use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Filelist\Controller\FileListController as BaseFileListController;
 
@@ -58,7 +58,7 @@ class FileListController extends BaseFileListController
             ->setClasses('uploaded')
             ->setShowLabelText(true)
             ->setTitle(LocalizationUtility::translate('upload.title'))
-            ->setIcon($this->iconFactory->getIcon('actions-upload', IconSize::SMALL));
+            ->setIcon($this->iconFactory->getIcon('actions-upload', Icon::SIZE_SMALL));
 
         $buttonBar->addButton($uploadButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
     }

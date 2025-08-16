@@ -28,7 +28,7 @@ use TYPO3\CMS\Extbase\Mvc\View\JsonView;
  */
 class UploadAjaxController extends ActionController
 {
-    protected ?string $defaultViewObjectName = JsonView::class;
+    protected $defaultViewObjectName = JsonView::class;
 
     /**
      * @return ResponseInterface
