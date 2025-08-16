@@ -18,6 +18,9 @@
 			<trans-unit id="upload.allowedExtensions">
 				<source>Allowed extensions: </source>
 			</trans-unit>
+			<trans-unit id="upload.excludedExtensions">
+                <source>Excluded extensions: </source>
+            </trans-unit>
 			<trans-unit id="upload.maxSize">
 				<source>Max size per file: </source>
 			</trans-unit>

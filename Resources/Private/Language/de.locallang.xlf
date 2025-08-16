@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 		    <trans-unit id="upload.title">
-                <target state="translated">Große Dateien</target>
+                <target state="translated">Große Dateien senden</target>
             </trans-unit>
 			<trans-unit id="upload.back" approved="yes">
 				<target state="translated">Zurück</target>
@@ -18,6 +18,9 @@
 			<trans-unit id="upload.allowedExtensions" approved="yes">
 				<target state="translated">Erlaubte Dateiendungen: </target>
 			</trans-unit>
+			<trans-unit id="upload.excludedExtensions" approved="yes">
+                <target state="translated">Ausgeschlossene Dateiendungen: </target>
+            </trans-unit>
 			<trans-unit id="upload.maxSize" approved="yes">
 				<target state="translated">Maximale Dateigröße: </target>
 			</trans-unit>

@@ -11,9 +11,22 @@
         >
             <ul>
                 <f:if condition="{allowedExtensions}">
+                    <f:then>
+                        <li>
+                            <f:translate key="upload.allowedExtensions"/>
+                            <strong>{allowedExtensions}</strong>
+                        </li>
+                    </f:then>
+                    <f:else>
+                        <li>
+                            <f:translate key="upload.allowedExtensions"/>*
+                        </li>
+                    </f:else>
+                </f:if>
+                <f:if condition="{excludedExtensions}">
                     <li>
-                        <f:translate key="upload.allowedExtensions"/>
-                        <strong>{allowedExtensions}</strong>
+                        <f:translate key="upload.excludedExtensions"/>
+                        <strong>{excludedExtensions}</strong>
                     </li>
                 </f:if>
                 <li>

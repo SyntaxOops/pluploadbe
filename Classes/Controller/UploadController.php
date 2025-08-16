@@ -116,6 +116,7 @@ class UploadController extends ActionController
             'uid' => $timestamp,
             'maxFileSizeMB' => $maxFileSize,
             'allowedExtensions' => $configuration['file']['allowedExtensions'],
+            'excludedExtensions' => $configuration['file']['excludedExtensions'],
         ]);
 
         /** @var UriBuilder $uriBuilder */
