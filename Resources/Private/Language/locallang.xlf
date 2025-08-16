@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2025-08-16T13:45:30Z" product-name="pluploadbe">
+		<header/>
+		<body>
+		    <trans-unit id="upload.title">
+                <source>Upload Large Files</source>
+            </trans-unit>
+			<trans-unit id="upload.back">
+				<source>Back</source>
+			</trans-unit>
+			<trans-unit id="upload.success">
+				<source>Done</source>
+			</trans-unit>
+			<trans-unit id="upload.restrictions">
+				<source>Restrictions: </source>
+			</trans-unit>
+			<trans-unit id="upload.allowedExtensions">
+				<source>Allowed extensions: </source>
+			</trans-unit>
+			<trans-unit id="upload.maxSize">
+				<source>Max size per file: </source>
+			</trans-unit>
+			<trans-unit id="upload.unit.mb">
+                <source>Mb</source>
+            </trans-unit>
+			<trans-unit id="exception.undefined">
+				<source>An unexpected error occurred while uploading file %s</source>
+			</trans-unit>
+			<trans-unit id="exception.extension">
+				<source>Uploading files with the extension %s is forbidden</source>
+			</trans-unit>
+			<trans-unit id="exception.accessDenied">
+				<source>Directory %s is not writeable</source>
+			</trans-unit>
+			<trans-unit id="exception.fileAlreadyExist">
+				<source>A file named %s already exists on the file system</source>
+			</trans-unit>
+			<trans-unit id="error">
+				<source>Error: </source>
+			</trans-unit>
+			<trans-unit id="exception.javascript">
+				<source>Please enable JavaScript!</source>
+			</trans-unit>
+			<trans-unit id="exception.browser">
+				<source>Your browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</source>
+			</trans-unit>
+			<trans-unit id="cleanup.description">
+                <source>Remove broken files</source>
+            </trans-unit>
+            <trans-unit id="cleanup.success">
+                <source>Broken files deleted successfully</source>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2025-08-16T13:45:30Z" product-name="pluploadbe">
+		<header/>
+		<body>
+		    <trans-unit id="upload.title">
+                <target state="translated">Große Dateien</target>
+            </trans-unit>
+			<trans-unit id="upload.back" approved="yes">
+				<target state="translated">Zurück</target>
+			</trans-unit>
+			<trans-unit id="upload.success" approved="yes">
+				<target state="translated">Erfolgreich abgeschlossen</target>
+			</trans-unit>
+			<trans-unit id="upload.restrictions" approved="yes">
+				<target state="translated">Einschränkungen: </target>
+			</trans-unit>
+			<trans-unit id="upload.allowedExtensions" approved="yes">
+				<target state="translated">Erlaubte Dateiendungen: </target>
+			</trans-unit>
+			<trans-unit id="upload.maxSize" approved="yes">
+				<target state="translated">Maximale Dateigröße: </target>
+			</trans-unit>
+			<trans-unit id="exception.undefined" approved="yes">
+				<target state="translated">Ein unerwarteter Fehler ist beim Hochladen der Datei %s aufgetreten</target>
+			</trans-unit>
+			<trans-unit id="exception.extension" approved="yes">
+				<target state="translated">Das Hochladen von Dateien mit der Endung %s ist nicht erlaubt</target>
+			</trans-unit>
+			<trans-unit id="exception.accessDenied" approved="yes">
+				<target state="translated">Das Verzeichnis %s ist nicht beschreibbar</target>
+			</trans-unit>
+			<trans-unit id="exception.alreadyExist" approved="yes">
+				<target state="translated">Eine Datei mit dem Namen %s existiert bereits im Dateisystem</target>
+			</trans-unit>
+			<trans-unit id="upload.error" approved="yes">
+				<target state="translated">Fehler: </target>
+			</trans-unit>
+			<trans-unit id="exception.javascript" approved="yes">
+				<target state="translated">Bitte aktivieren Sie JavaScript!</target>
+			</trans-unit>
+			<trans-unit id="exception.browser" approved="yes">
+				<target state="translated">Ihr Browser unterstützt Flash, Silverlight, Gears, BrowserPlus oder HTML5 nicht.</target>
+			</trans-unit>
+            <trans-unit id="cleanup.description">
+                <target state="translated">Beschädigte Dateien entfernen</target>
+            </trans-unit>
+            <trans-unit id="cleanup.success">
+                <target state="translated">Beschädigte Dateien erfolgreich gelöscht</target>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

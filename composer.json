@@ -1,0 +1,66 @@
+{
+    "name": "syntaxoops/pluploadbe",
+    "type": "typo3-cms-extension",
+    "description": "A TYPO3 extension that enables backend users to upload large files exceeding the upload_max_filesize limit in PHP.",
+    "keywords": [
+        "TYPO3",
+        "extension",
+        "backend",
+        "plupload"
+    ],
+    "authors": [
+        {
+            "name": "Haythem Daoud",
+            "role": "TYPO3 Backend Developer",
+            "homepage": "https://haythemdaoud.net"
+        }
+    ],
+    "license": [
+        "GPL-3.0-or-later"
+    ],
+    "require": {
+        "php": ">= 7.4 < 8.4",
+        "typo3/cms-core": "^11.5 || ^12.4 || ^13.0 || dev-main"
+    },
+    "suggest": {
+        "causal/image_autoresize": "Resize images automatically"
+    },
+    "require-dev": {
+        "phpstan/phpdoc-parser": "^2.2.0",
+        "typo3/testing-framework": "^8.0.9",
+        "phpunit/phpunit": "^10.5",
+        "typo3/coding-standards": "^0.5.5",
+        "friendsofphp/php-cs-fixer": "^3.47.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "SyntaxOOps\\PluploadBE\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SyntaxOOps\\PluploadBE\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "typo3-ter/pluploadbe": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin",
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        }
+    },
+    "scripts": {
+        "php:cs": "php-cs-fixer fix --config=Build/php-cs-fixer.php -v --dry-run --using-cache no --diff",
+        "php:fix": "php-cs-fixer fix --config=Build/php-cs-fixer.php"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "pluploadbe",
+            "web-dir": ".Build/Web"
+        }
+    }
+}

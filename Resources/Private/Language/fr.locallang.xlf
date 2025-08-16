@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2025-08-16T13:45:30Z" product-name="pluploadbe">
+		<header/>
+		<body>
+		    <trans-unit id="upload.title">
+                <target state="translated">De gros fichiers</target>
+            </trans-unit>
+			<trans-unit id="upload.back" approved="yes">
+				<target state="translated">Retour</target>
+			</trans-unit>
+			<trans-unit id="upload.success" approved="yes">
+				<target state="translated">Complété avec succès</target>
+			</trans-unit>
+			<trans-unit id="upload.restrictions" approved="yes">
+				<target state="translated">Restrictions: </target>
+			</trans-unit>
+			<trans-unit id="upload.allowedExtensions" approved="yes">
+				<target state="translated">Extensions autorisées: </target>
+			</trans-unit>
+			<trans-unit id="upload.maxSize" approved="yes">
+				<target state="translated">Taille maximale pour un fichier: </target>
+			</trans-unit>
+			<trans-unit id="exception.undefined" approved="yes">
+				<target state="translated">Une erreur inattendue s'est produite lors du téléchargement du fichier %s</target>
+			</trans-unit>
+			<trans-unit id="exception.extension" approved="yes">
+				<target state="translated">Le téléchargement de fichiers avec l'extension %s est interdit</target>
+			</trans-unit>
+			<trans-unit id="exception.accessDenied" approved="yes">
+				<target state="translated">Le répertoire %s n'est pas accessible en écriture</target>
+			</trans-unit>
+			<trans-unit id="exception.alreadyExist" approved="yes">
+				<target state="translated">Un fichier nommé %s existe déjà sur le système de fichiers</target>
+			</trans-unit>
+			<trans-unit id="upload.error" approved="yes">
+				<target state="translated">Erreur: </target>
+			</trans-unit>
+			<trans-unit id="exception.javascript" approved="yes">
+				<target state="translated">Veuillez activer JavaScript!</target>
+			</trans-unit>
+			<trans-unit id="exception.browser" approved="yes">
+				<target state="translated">Votre navigateur ne prend pas en charge Flash, Silverlight, Gears, BrowserPlus ou HTML5.</target>
+			</trans-unit>
+            <trans-unit id="cleanup.description">
+                <target state="translated">Supprimer les fichiers endommagés</target>
+            </trans-unit>
+            <trans-unit id="cleanup.success">
+                <target state="translated">Fichiers endommagés supprimés avec succès</target>
+            </trans-unit>
+		</body>
+	</file>
+</xliff>

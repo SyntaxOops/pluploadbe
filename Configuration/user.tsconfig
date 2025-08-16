@@ -1,0 +1,1 @@
+options.hideModules := addToList(Plupload_BE)

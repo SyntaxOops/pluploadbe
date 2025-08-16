@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2025-08-16T13:45:30Z" product-name="pluploadbe">
+		<header/>
+		<body>
+			<trans-unit id="file.chunkSize">
+				<source>Chunk size for upload, must be less than upload_max_filesize</source>
+			</trans-unit>
+			<trans-unit id="file.maxSize">
+				<source>Maximum allowed size for uploaded files</source>
+			</trans-unit>
+			<trans-unit id="file.extensions">
+				<source>Allowed extensions  (empty - allow all)</source>
+			</trans-unit>
+
+			<trans-unit id="image.autoresizeMode">
+				<source>Image processing mode: 0 - off, 1 - on the client side, 2 - on the server side.</source>
+			</trans-unit>
+			<trans-unit id="image.width">
+				<source>Image width (used on the client side for processing)</source>
+			</trans-unit>
+			<trans-unit id="image.height">
+				<source>Image height (used on the client side for processing)</source>
+			</trans-unit>
+			<trans-unit id="image.quality">
+				<source>Image quality (used on the client side for processing)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

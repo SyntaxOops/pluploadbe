@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2025-08-16T13:45:30Z" product-name="pluploadbe">
+		<header/>
+		<body>
+			<trans-unit id="file.chunkSize">
+				<target state="translated">Die Blockgröße für den Upload muss kleiner als upload_max_filesize sein</target>
+			</trans-unit>
+			<trans-unit id="file.maxSize">
+				<target state="translated">Maximale zulässige Dateigröße für hochgeladene Dateien</target>
+			</trans-unit>
+			<trans-unit id="file.extensions">
+				<target state="translated">Erlaubte Dateierweiterungen (leer - alles zulassen)</target>
+			</trans-unit>
+
+			<trans-unit id="image.autoresizeMode">
+				<target state="translated">Bildverarbeitungsmodus: 0 - deaktiviert, 1 - clientseitig, 2 - serverseitig.</target>
+			</trans-unit>
+			<trans-unit id="image.width">
+				<target state="translated">Bildbreite (wird clientseitig für die Verarbeitung verwendet)</target>
+			</trans-unit>
+			<trans-unit id="image.height">
+				<target state="translated">Bildhöhe (wird clientseitig für die Verarbeitung verwendet)</target>
+			</trans-unit>
+			<trans-unit id="image.quality">
+				<target state="translated">Bildqualität (wird clientseitig für die Verarbeitung verwendet)</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

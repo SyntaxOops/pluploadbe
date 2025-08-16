@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  SyntaxOOps\PluploadBE\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+
+  SyntaxOOps\PluploadBE\Command\FileCleanupCommand:
+      tags:
+          - name: 'console.command'
+            command: 'pluploadbe:cleanup'
+            description: 'Remove broken files after upload'
