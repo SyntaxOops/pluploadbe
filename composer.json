@@ -54,6 +54,10 @@
         }
     },
     "scripts": {
+        "post-install-cmd":  [
+            "git init",
+            "git config --local core.hooksPath .githooks/"
+        ],
         "php:cs": "php-cs-fixer fix --config=Build/php-cs-fixer.php -v --dry-run --using-cache no --diff",
         "php:fix": "php-cs-fixer fix --config=Build/php-cs-fixer.php"
     },
