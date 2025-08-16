@@ -135,7 +135,7 @@ class UploadController extends ActionController
                 'maxFileSize' => $maxSize,
                 'allowedExtensions' => $configuration['file']['allowedExtensions'],
                 'excludedExtensions' => $configuration['file']['excludedExtensions'],
-                'resizeEnabled' => $resizeEnabled ? 'true' : 'false',
+                'resizeEnabled' => $resizeEnabled,
                 'resize' => $configuration['image'],
                 'uploadUrl' => $uploadUrl,
                 'error' => LocalizationUtility::translate('upload.error'),
