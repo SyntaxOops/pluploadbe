@@ -11,7 +11,7 @@ file.allowedExtensions =
 file.excludedExtensions =
 
 # cat=processing; type=int; label=LLL:EXT:pluploadbe/Resources/Private/Language/locallang_em.xlf:image.autoresizeMode
-image.autoresizeMode = 2
+image.autoresizeMode = 0
 
 # cat=processing; type=int; label=LLL:EXT:pluploadbe/Resources/Private/Language/locallang_em.xlf:image.width
 image.width = 1920

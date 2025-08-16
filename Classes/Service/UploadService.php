@@ -16,7 +16,9 @@ use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\ExtensionFileException;
 use SyntaxOOps\PluploadBE\Exception\FileAlreadyExistsException;
 use SyntaxOOps\PluploadBE\Utility\ConfigurationUtility;
+use SyntaxOOps\PluploadBE\Utility\ImageAutoresizeUtility;
 use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Core\Environment;
@@ -38,6 +40,7 @@ class UploadService
     protected ?Folder $folderObject;
     protected string $fileName;
     protected string $uploadPath;
+    protected BackendUserAuthentication $backendUser;
     private array $config;
 
     /**
@@ -47,6 +50,7 @@ class UploadService
     public function __construct()
     {
         $this->config = ConfigurationUtility::getExtensionConfiguration();
+        $this->backendUser = GeneralUtility::makeInstance(BackendUserAuthentication::class);
     }
 
     /**
@@ -224,23 +228,25 @@ class UploadService
     {
         GeneralUtility::fixPermissions($filePath);
 
-        if (!class_exists('\\Causal\\ImageAutoresize\\Hooks\\FileUploadHook')) {
+        if(!class_exists('\\Causal\\ImageAutoresize\\Service\\ImageResizer')) {
             return;
         }
 
-        if ($this->config['image']['autoresize'] == 2) {
+        if ($this->config['image']['autoresizeMode'] == 2) {
             $ext = pathinfo($filePath, PATHINFO_EXTENSION);
             $allowedExtensions = ImageAutoresizeUtility::getExtensions();
 
-            if (in_array($ext, $allowedExtensions)) {
-                foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processUpload'] ?? [] as $className) {
-                    $hookObject = GeneralUtility::makeInstance($className);
-                    if (!$hookObject instanceof FileUploadHook) {
-                        continue;
-                    }
-                    $_ref = null;
-                    $hookObject->processUpload_postProcessAction($filePath, $_ref);
-                }
+            $imageResizer = GeneralUtility::makeInstance(\Causal\ImageAutoresize\Service\ImageResizer::class);
+
+            if (in_array($ext, $allowedExtensions, true)) {
+                $imageResizer->processFile(
+                    $filePath,
+                    '',
+                    '',
+                    null,
+                    $this->backendUser,
+                    'notify'
+                );
             }
         }
     }
