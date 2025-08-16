@@ -20,7 +20,7 @@ Installation
 
 .. code-block:: bash
 
-   composer require syntaxtools/pluploadbe
+   composer require syntaxoops/pluploadbe
 
 Configuration
 -------------
