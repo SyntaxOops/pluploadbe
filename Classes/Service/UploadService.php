@@ -228,7 +228,7 @@ class UploadService
     {
         GeneralUtility::fixPermissions($filePath);
 
-        if(!class_exists('\\Causal\\ImageAutoresize\\Service\\ImageResizer')) {
+        if (!class_exists('\\Causal\\ImageAutoresize\\Service\\ImageResizer')) {
             return;
         }
 
