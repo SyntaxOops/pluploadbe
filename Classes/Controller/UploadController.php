@@ -133,6 +133,7 @@ class UploadController extends ActionController
                 'chunkSize' => $chunkSize,
                 'maxFileSize' => $maxSize,
                 'allowedExtensions' => $configuration['file']['allowedExtensions'],
+                'excludedExtensions' => $configuration['file']['excludedExtensions'],
                 'resizeEnabled' => $resizeEnabled ? 'true' : 'false',
                 'resize' => $configuration['image'],
                 'uploadUrl' => $uploadUrl,

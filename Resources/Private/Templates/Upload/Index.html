@@ -24,8 +24,13 @@
         </f:be.infobox>
 
         <div id="uploader_{uid}">
-            <noscript><p><f:translate key="exception.javascript"/></p></noscript>
-            <p><f:translate key="exception.browser"/></p>
+            <f:be.infobox
+                title="{f:translate(key: 'upload.error')}"
+                message="{f:translate(key:'exception.browser')}"
+                state="{f:constant(name: 'TYPO3\CMS\Fluid\ViewHelpers\Be\InfoboxViewHelper::STATE_ERROR')}"
+            >
+                <noscript><f:translate key="exception.javascript"/></noscript>
+            </f:be.infobox>
         </div>
     </f:section>
 </html>

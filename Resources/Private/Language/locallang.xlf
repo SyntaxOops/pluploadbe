@@ -36,7 +36,7 @@
 			<trans-unit id="exception.fileAlreadyExist">
 				<source>A file named %s already exists on the file system</source>
 			</trans-unit>
-			<trans-unit id="error">
+			<trans-unit id="upload.error">
 				<source>Error: </source>
 			</trans-unit>
 			<trans-unit id="exception.javascript">

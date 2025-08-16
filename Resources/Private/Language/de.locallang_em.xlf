@@ -9,10 +9,12 @@
 			<trans-unit id="file.maxSize">
 				<target state="translated">Maximale zulässige Dateigröße für hochgeladene Dateien</target>
 			</trans-unit>
-			<trans-unit id="file.extensions">
+			<trans-unit id="file.allowedExtensions">
 				<target state="translated">Erlaubte Dateierweiterungen (leer - alles zulassen)</target>
 			</trans-unit>
-
+            <trans-unit id="file.excludedExtensions">
+                <target state="translated">Nicht erlaubte Erweiterungen (leer = keine)</target>
+            </trans-unit>
 			<trans-unit id="image.autoresizeMode">
 				<target state="translated">Bildverarbeitungsmodus: 0 - deaktiviert, 1 - clientseitig, 2 - serverseitig.</target>
 			</trans-unit>

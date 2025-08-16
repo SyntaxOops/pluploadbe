@@ -9,10 +9,12 @@
 			<trans-unit id="file.maxSize">
 				<target state="translated">Taille maximale autorisée pour les fichiers téléchargés</target>
 			</trans-unit>
-			<trans-unit id="file.extensions">
+			<trans-unit id="file.allowedExtensions">
 				<target state="translated">Extensions autorisées (vide - tout autoriser)</target>
 			</trans-unit>
-
+			<trans-unit id="file.excludedExtensions">
+                <target state="translated">Extensions non autorisées (vide - aucune)</target>
+            </trans-unit>
 			<trans-unit id="image.autoresizeMode">
 				<target state="translated">Mode de traitement d'image: 0 - désactivé, 1 - côté client, 2 - côté serveur.</target>
 			</trans-unit>

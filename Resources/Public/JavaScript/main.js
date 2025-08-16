@@ -1,13 +1,60 @@
 $(function () {
+
+  // https://github.com/moxiecode/plupload/issues/1242
+  plupload.addFileFilter('exclude_mime_types', function(filter, file, cb){
+    var permitted = true;
+    var extensions = filter[0].extensions.split(',');
+    // We have no excluded extensions, function presented default exclusion string, so allow anything
+    if(extensions.length === 1 && extensions[0] === "-")
+      permitted = true;
+    else
+    {
+      for(var i = 0; i < extensions.length; i++)
+      {
+        var fileArray = file.name.split('.');
+        var extension = fileArray[fileArray.length - 1];
+
+        if(extensions[i].trim().toUpperCase() === extension.toUpperCase())
+        {
+          this.trigger('Error', {
+            code: plupload.FILE_EXTENSION_ERROR,
+            message: plupload.translate('File extension error.'),
+            file: file
+          });
+          permitted = false;
+          cb(false);
+          return;
+        }
+      }
+    }
+
+    if(permitted)
+      cb(true);
+  });
+
   var filters = {
-    max_file_size: Plupload_BE.settings.maxFileSize
+    max_file_size: Plupload_BE.settings.maxFileSize,
+    prevent_duplicates: true
   };
 
+  // List of allowed files extensions
   if (Plupload_BE.settings.allowedExtensions.length > 0) {
-    filters['mime_types'] = [{
-      title: "Allowed files",
-      extensions: Plupload_BE.settings.allowedExtensions
-    }];
+    filters['mime_types'] = [
+      {
+        title: "Allowed files",
+        extensions: Plupload_BE.settings.allowedExtensions,
+      }
+    ];
+  }
+
+  // List of excluded files extensions
+  if (Plupload_BE.settings.excludedExtensions.length > 0) {
+    filters['exclude_mime_types'] = [
+      {
+        title: "Excluded files",
+        extensions: Plupload_BE.settings.excludedExtensions,
+      }
+    ];
   }
 
   var settings = {
