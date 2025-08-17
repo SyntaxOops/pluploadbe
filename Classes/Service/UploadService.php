@@ -40,7 +40,6 @@ class UploadService
     protected ?Folder $folderObject;
     protected string $fileName;
     protected string $uploadPath;
-    protected BackendUserAuthentication $backendUser;
     private array $config;
 
     /**
@@ -50,7 +49,6 @@ class UploadService
     public function __construct()
     {
         $this->config = ConfigurationUtility::getExtensionConfiguration();
-        $this->backendUser = GeneralUtility::makeInstance(BackendUserAuthentication::class);
     }
 
     /**
@@ -107,7 +105,7 @@ class UploadService
         $ext = pathinfo($this->getFileName(), PATHINFO_EXTENSION);
         $message = sprintf(LocalizationUtility::translate('exception.extension'), $ext);
 
-        $allowed = $this->config['file']['allowedExtensions'];
+        $allowedExtensions = $this->config['file']['allowedExtensions'];
 
         /** @var FileNameValidator $fileValidator */
         $fileValidator = GeneralUtility::makeInstance(FileNameValidator::class);
@@ -116,11 +114,11 @@ class UploadService
             throw new ExtensionFileException($message, 1604596435);
         }
 
-        if (empty($allowed)) {
+        if (empty($allowedExtensions)) {
             return true;
         }
 
-        if (empty($ext) || !in_array($ext, explode(',', $allowed))) {
+        if (empty($ext) || !in_array($ext, explode(',', $allowedExtensions))) {
             throw new ExtensionFileException($message, 1604596436);
         }
 
@@ -235,16 +233,16 @@ class UploadService
         if ($this->config['image']['autoresizeMode'] == 2) {
             $ext = pathinfo($filePath, PATHINFO_EXTENSION);
             $allowedExtensions = ImageAutoresizeUtility::getExtensions();
-
-            $imageResizer = GeneralUtility::makeInstance(\Causal\ImageAutoresize\Service\ImageResizer::class);
-
             if (in_array($ext, $allowedExtensions, true)) {
+                $imageResizer = GeneralUtility::makeInstance(\Causal\ImageAutoresize\Service\ImageResizer::class);
+                $backendUser = GeneralUtility::makeInstance(BackendUserAuthentication::class);
+
                 $imageResizer->processFile(
                     $filePath,
                     '',
                     '',
                     null,
-                    $this->backendUser,
+                    $backendUser,
                     'notify'
                 );
             }

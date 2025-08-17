@@ -9,9 +9,15 @@
 			<trans-unit id="upload.back">
 				<source>Back</source>
 			</trans-unit>
+			<trans-unit id="upload.error">
+                <source>Error: </source>
+            </trans-unit>
 			<trans-unit id="upload.success">
 				<source>Done</source>
 			</trans-unit>
+			<trans-unit id="upload.file.success">
+                <source>file is successfully saved to the file system.</source>
+            </trans-unit>
 			<trans-unit id="upload.restrictions">
 				<source>Restrictions: </source>
 			</trans-unit>
@@ -39,9 +45,6 @@
 			<trans-unit id="exception.fileAlreadyExist">
 				<source>A file named %s already exists on the file system</source>
 			</trans-unit>
-			<trans-unit id="upload.error">
-				<source>Error: </source>
-			</trans-unit>
 			<trans-unit id="exception.javascript">
 				<source>Please enable JavaScript!</source>
 			</trans-unit>
@@ -50,6 +53,9 @@
 			</trans-unit>
 			<trans-unit id="cleanup.description">
                 <source>Remove broken files</source>
+            </trans-unit>
+            <trans-unit id="cleanup.args.max_age">
+                <source>Max age for stale files in seconds.</source>
             </trans-unit>
             <trans-unit id="cleanup.success">
                 <source>Broken files deleted successfully</source>

@@ -92,7 +92,7 @@ $(function () {
         errorMsg += json.error.message;
         $.notify(errorMsg, "error");
       } else {
-        $.notify('File uploaded successfully !', "success");
+        $.notify(`${file.name} ${TYPO3.lang.fileUploaded}`, "success");
       }
     }
   };
