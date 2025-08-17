@@ -22,7 +22,6 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Folder;
@@ -227,7 +226,7 @@ class UploadService
     {
         GeneralUtility::fixPermissions($filePath);
 
-        if(!class_exists('\\Causal\\ImageAutoresize\\Service\\ImageResizer')) {
+        if (!class_exists('\\Causal\\ImageAutoresize\\Service\\ImageResizer')) {
             return;
         }
 

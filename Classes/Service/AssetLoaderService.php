@@ -14,7 +14,6 @@ namespace SyntaxOOps\PluploadBE\Service;
 use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Page\AssetCollector;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class AssetLoaderService

@@ -48,8 +48,12 @@ class FileCleanupCommand extends Command
         $this
             ->setDescription(LocalizationUtility::translate('cleanup.description'))
             ->setAliases(['pluploadbe:cleanup'])
-            ->addArgument('max_age', InputArgument::OPTIONAL,
-                LocalizationUtility::translate('cleanup.args.max_age'), 86400);
+            ->addArgument(
+                'max_age',
+                InputArgument::OPTIONAL,
+                LocalizationUtility::translate('cleanup.args.max_age'),
+                86400
+            );
     }
 
     /**
