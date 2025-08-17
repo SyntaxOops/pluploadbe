@@ -1,7 +1,7 @@
 # PluploadBE TYPO3 Extension
 
 **Extension Key:** `pluploadbe`
-**TYPO3 Version:** 11/12/13+
+**TYPO3 Version:** 12/13+
 
 A TYPO3 backend extension integrating [Plupload](https://www.plupload.com/), enabling multi-file uploads with progress tracking, image resizing, and file validation.
 
