@@ -69,7 +69,7 @@ class AssetLoaderService
 
         $this->pageRenderer->addInlineLanguageLabel(
             'fileUploaded',
-            sprintf(LocalizationUtility::translate('upload.file.success'), $_REQUEST['name'])
+            LocalizationUtility::translate('upload.file.success')
         );
 
         $this->assetCollector->addJavaScript(

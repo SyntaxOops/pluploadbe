@@ -16,7 +16,7 @@
 				<source>Done</source>
 			</trans-unit>
 			<trans-unit id="upload.file.success">
-                <source>%s file is successfully saved to the file system.</source>
+                <source>file is successfully saved to the file system.</source>
             </trans-unit>
 			<trans-unit id="upload.restrictions">
 				<source>Restrictions: </source>

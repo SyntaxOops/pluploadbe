@@ -16,7 +16,7 @@
 				<target state="translated">Erfolgreich abgeschlossen</target>
 			</trans-unit>
 			<trans-unit id="upload.file.success" approved="yes">
-                <target state="translated">%s Datei wurde erfolgreich im Dateisystem gespeichert.</target>
+                <target state="translated">Datei wurde erfolgreich im Dateisystem gespeichert.</target>
             </trans-unit>
 			<trans-unit id="upload.restrictions" approved="yes">
 				<target state="translated">Einschränkungen: </target>
