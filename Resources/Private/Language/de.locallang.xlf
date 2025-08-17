@@ -9,9 +9,15 @@
 			<trans-unit id="upload.back" approved="yes">
 				<target state="translated">Zurück</target>
 			</trans-unit>
+			<trans-unit id="upload.error" approved="yes">
+                <target state="translated">Fehler: </target>
+            </trans-unit>
 			<trans-unit id="upload.success" approved="yes">
 				<target state="translated">Erfolgreich abgeschlossen</target>
 			</trans-unit>
+			<trans-unit id="upload.file.success" approved="yes">
+                <target state="translated">%s Datei wurde erfolgreich im Dateisystem gespeichert.</target>
+            </trans-unit>
 			<trans-unit id="upload.restrictions" approved="yes">
 				<target state="translated">Einschränkungen: </target>
 			</trans-unit>
@@ -33,11 +39,8 @@
 			<trans-unit id="exception.accessDenied" approved="yes">
 				<target state="translated">Das Verzeichnis %s ist nicht beschreibbar</target>
 			</trans-unit>
-			<trans-unit id="exception.alreadyExist" approved="yes">
+			<trans-unit id="exception.fileAlreadyExist" approved="yes">
 				<target state="translated">Eine Datei mit dem Namen %s existiert bereits im Dateisystem</target>
-			</trans-unit>
-			<trans-unit id="upload.error" approved="yes">
-				<target state="translated">Fehler: </target>
 			</trans-unit>
 			<trans-unit id="exception.javascript" approved="yes">
 				<target state="translated">Bitte aktivieren Sie JavaScript!</target>
@@ -47,6 +50,9 @@
 			</trans-unit>
             <trans-unit id="cleanup.description">
                 <target state="translated">Beschädigte Dateien entfernen</target>
+            </trans-unit>
+            <trans-unit id="cleanup.args.max_age">
+                <target state="translated">Maximales Alter veralteter Dateien in Sekunden.</target>
             </trans-unit>
             <trans-unit id="cleanup.success">
                 <target state="translated">Beschädigte Dateien erfolgreich gelöscht</target>

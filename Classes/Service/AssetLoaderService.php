@@ -11,7 +11,10 @@ declare(strict_types=1);
 
 namespace SyntaxOOps\PluploadBE\Service;
 
+use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Page\AssetCollector;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class AssetLoaderService
@@ -22,9 +25,11 @@ class AssetLoaderService
 {
     /**
      * @param AssetCollector $assetCollector
+     * @param PageRenderer $pageRenderer
      */
     public function __construct(
-        protected AssetCollector $assetCollector
+        protected AssetCollector $assetCollector,
+        protected PageRenderer $pageRenderer
     ) {}
 
     /**
@@ -61,6 +66,11 @@ class AssetLoaderService
         $this->assetCollector->addJavaScript(
             'notify',
             'EXT:pluploadbe/Resources/Public/JavaScript/notifyjs/notify.min.js'
+        );
+
+        $this->pageRenderer->addInlineLanguageLabel(
+            'fileUploaded',
+            sprintf(LocalizationUtility::translate('upload.file.success'), $_REQUEST['name'])
         );
 
         $this->assetCollector->addJavaScript(
