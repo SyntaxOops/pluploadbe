@@ -25,6 +25,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\AssetCollector;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -146,11 +147,16 @@ class UploadController extends ActionController
             ],
         ];
 
+        $cspAssetOption = 'useNonce';
+        if (version_compare((new Typo3Version())->getVersion(), '14.2.0', '>=')) {
+            $cspAssetOption = 'csp';
+        }
+
         $this->assetCollector->addInlineJavaScript(
             'plupload-settings',
             'var Plupload_BE = ' . json_encode($pluploadSettings, JSON_FORCE_OBJECT) . ';',
             [],
-            ['priority' => true, 'csp' => true]
+            ['priority' => true, $cspAssetOption => true]
         );
 
         return $this->moduleTemplate->renderResponse('Upload/Index');
