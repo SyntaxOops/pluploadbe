@@ -26,6 +26,7 @@ use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Page\AssetCollector;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -117,6 +118,8 @@ class UploadController extends ActionController
             'maxFileSizeMB' => $maxFileSize,
             'allowedExtensions' => $configuration['file']['allowedExtensions'],
             'excludedExtensions' => $configuration['file']['excludedExtensions'],
+            'warningState' => ContextualFeedbackSeverity::WARNING->value,
+            'errorState' => ContextualFeedbackSeverity::ERROR->value,
         ]);
 
         /** @var UriBuilder $uriBuilder */
