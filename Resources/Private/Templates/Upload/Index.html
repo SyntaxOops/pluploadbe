@@ -7,7 +7,7 @@
     <f:section name="Content">
         <f:be.infobox
             title="{f:translate(key:'upload.restrictions')}"
-            state="{f:constant(name: 'TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::WARNING')}"
+            state="{warningState}"
         >
             <ul>
                 <f:if condition="{allowedExtensions}">
@@ -40,11 +40,10 @@
             <f:be.infobox
                 title="{f:translate(key: 'upload.error')}"
                 message="{f:translate(key:'exception.browser')}"
-                state="{f:constant(name: 'TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR')}"
+                state="{errorState}"
             >
                 <noscript><f:translate key="exception.javascript"/></noscript>
             </f:be.infobox>
         </div>
     </f:section>
 </html>
-
