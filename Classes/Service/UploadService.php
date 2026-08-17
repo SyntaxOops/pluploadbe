@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace SyntaxOOps\PluploadBE\Service;
 
-use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\Exception\ExtensionFileException;
 use SyntaxOOps\PluploadBE\Exception\FileAlreadyExistsException;
@@ -27,7 +26,6 @@ use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
-use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -37,10 +35,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class UploadService
 {
-    protected ?Folder $folderObject;
+    protected ?Folder $folderObject = null;
     protected string $fileName;
     protected string $uploadPath;
-    private array $config;
+
+    /**
+     * @var array{
+     *     file: array{chunkSize: int, maxSize: int, allowedExtensions: string, excludedExtensions: string},
+     *     image: array{autoresizeMode: int, width: int, height: int, quality: int}
+     * }
+     */
+    private array $configuration;
 
     /**
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -48,30 +53,32 @@ class UploadService
      */
     public function __construct()
     {
-        $this->config = ConfigurationUtility::getExtensionConfiguration();
+        $this->configuration = ConfigurationUtility::getExtensionConfiguration();
     }
 
     /**
      * @param string $combinedIdentifier
      * @param string $file
+     * @throws AccessDeniedException
+     * @throws ExtensionFileException
+     * @throws FileAlreadyExistsException
      * @throws InvalidFileNameException
      */
-    public function process(string $combinedIdentifier, string $file): void
+    public function process(string $combinedIdentifier, string $file, int $chunk = 0, int $chunks = 0): void
     {
-        /** @var StorageRepository $storageRepository */
-        $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
-
         /** @var ResourceFactory $resourceFactory */
         $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
 
-        $storage = $storageRepository->findByCombinedIdentifier($combinedIdentifier);
-        $identifier = substr($combinedIdentifier, strpos($combinedIdentifier, ':') + 1);
-        $this->folderObject = $resourceFactory->getFolderObjectFromCombinedIdentifier($storage->getUid() . ':' . $identifier);
+        if ($combinedIdentifier === '') {
+            throw new \InvalidArgumentException('A folder identifier is required.', 1755446663);
+        }
+
+        $this->folderObject = $resourceFactory->getFolderObjectFromCombinedIdentifier($combinedIdentifier);
 
         $this->uploadPath = $this->getUploadPath();
         $this->setFileName($file);
         $this->checkRequired();
-        $this->uploadFile();
+        $this->uploadFile($chunk, $chunks);
     }
 
     /**
@@ -79,8 +86,13 @@ class UploadService
      */
     protected function getUploadPath(): string
     {
-        $basePath = $this->folderObject->getStorage()->getConfiguration()['basePath'];
-        $fullPath = Environment::getPublicPath() . '/' . $basePath . $this->folderObject->getReadablePath();
+        $folderObject = $this->folderObject;
+        if (!$folderObject instanceof Folder) {
+            throw new \InvalidArgumentException('The upload folder has not been initialized.', 1755446664);
+        }
+
+        $basePath = $folderObject->getStorage()->getConfiguration()['basePath'];
+        $fullPath = Environment::getPublicPath() . '/' . $basePath . $folderObject->getReadablePath();
         $fullPath = str_replace('//', '/', $fullPath);
 
         return rtrim($fullPath, '/');
@@ -105,7 +117,7 @@ class UploadService
         $ext = pathinfo($this->getFileName(), PATHINFO_EXTENSION);
         $message = sprintf(LocalizationUtility::translate('exception.extension'), $ext);
 
-        $allowedExtensions = $this->config['file']['allowedExtensions'];
+        $allowedExtensions = $this->configuration['file']['allowedExtensions'];
 
         /** @var FileNameValidator $fileValidator */
         $fileValidator = GeneralUtility::makeInstance(FileNameValidator::class);
@@ -131,8 +143,9 @@ class UploadService
      */
     protected function checkRequired(): bool
     {
-        if (!$this->checkAccess()) {
-            $path = $this->folderObject->getReadablePath();
+        $folderObject = $this->folderObject;
+        if (!$folderObject instanceof Folder || !$this->checkAccess()) {
+            $path = $folderObject?->getReadablePath() ?? '';
             $message = sprintf(LocalizationUtility::translate('exception.accessDenied'), $path);
             throw new AccessDeniedException($message);
         }
@@ -155,7 +168,7 @@ class UploadService
      */
     protected function getFileName(): string
     {
-        return $this->fileName ?: $_REQUEST['name'];
+        return $this->fileName;
     }
 
     /**
@@ -167,12 +180,8 @@ class UploadService
      * License: http://www.plupload.com/license
      * Contributing: http://www.plupload.com/contributing
      */
-    protected function uploadFile(): void
+    protected function uploadFile(int $chunk, int $chunks): void
     {
-        // Get additional parameters
-        $chunk = isset($_REQUEST['chunk']) ? (int)($_REQUEST['chunk']) : 0;
-        $chunks = isset($_REQUEST['chunks']) ? (int)($_REQUEST['chunks']) : 0;
-
         // Clean the fileName for security reasons
         $filePath = $this->uploadPath . DIRECTORY_SEPARATOR . $this->getFileName();
 
@@ -186,12 +195,12 @@ class UploadService
         // Open temp file
         $out = @fopen("{$filePath}.part", $chunks && $fileExist ? 'ab' : 'wb+');
         if (!$out) {
-            throw new InvalidArgumentException('Failed to open output stream.', 102);
+            throw new \InvalidArgumentException('Failed to open output stream.', 102);
         }
 
         if (!empty($_FILES)) {
             if ($_FILES['file']['error'] || !is_uploaded_file($_FILES['file']['tmp_name'])) {
-                throw new InvalidArgumentException('Failed to move uploaded file.', 103);
+                throw new \InvalidArgumentException('Failed to move uploaded file.', 103);
             }
 
             // Read binary input stream and append it to temp file
@@ -201,7 +210,7 @@ class UploadService
         }
 
         if (!$in) {
-            throw new InvalidArgumentException('Failed to open input stream.', 101);
+            throw new \InvalidArgumentException('Failed to open input stream.', 101);
         }
 
         while ($buff = fread($in, 4096)) {
@@ -230,7 +239,7 @@ class UploadService
             return;
         }
 
-        if ($this->config['image']['autoresizeMode'] == 2) {
+        if ($this->configuration['image']['autoresizeMode'] == 2) {
             $ext = pathinfo($filePath, PATHINFO_EXTENSION);
             $allowedExtensions = ImageAutoresizeUtility::getExtensions();
             if (in_array($ext, $allowedExtensions, true)) {

@@ -19,7 +19,6 @@ use SyntaxOOps\PluploadBE\Service\UploadService;
 use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 
 /**
  * Class UploadController
@@ -28,8 +27,6 @@ use TYPO3\CMS\Extbase\Mvc\View\JsonView;
  */
 class UploadAjaxController extends ActionController
 {
-    protected ?string $defaultViewObjectName = JsonView::class;
-
     /**
      * @return ResponseInterface
      */
@@ -44,13 +41,17 @@ class UploadAjaxController extends ActionController
             'id' => 'id',
         ];
 
-        $combinedFolderIdentifier = (string)($this->request->getParsedBody()['id'] ?? $this->request->getQueryParams()['id'] ?? null);
-        $fileName = (string)($this->request->getParsedBody()['name'] ?? $this->request->getQueryParams()['name'] ?? '');
+        $parsedBody = (array)$this->request->getParsedBody();
+        $queryParams = $this->request->getQueryParams();
+        $combinedFolderIdentifier = (string)($parsedBody['id'] ?? $queryParams['id'] ?? '');
+        $fileName = (string)($parsedBody['name'] ?? $queryParams['name'] ?? '');
+        $chunk = (int)($parsedBody['chunk'] ?? $queryParams['chunk'] ?? 0);
+        $chunks = (int)($parsedBody['chunks'] ?? $queryParams['chunks'] ?? 0);
 
         $responseCode = 200;
 
         try {
-            $uploadService->process($combinedFolderIdentifier, $fileName);
+            $uploadService->process($combinedFolderIdentifier, $fileName, $chunk, $chunks);
         } catch (ExtensionFileException|FileAlreadyExistsException $e) {
             $responseCode = 410;
             $result['error'] = [
@@ -72,12 +73,10 @@ class UploadAjaxController extends ActionController
             ];
         }
 
-        $this->view->assign('value', $result);
-
         $response = $this->responseFactory->createResponse()
             ->withStatus($responseCode)
             ->withHeader('Content-Type', 'application/json; charset=utf-8');
-        $response->getBody()->write($this->view->render());
+        $response->getBody()->write((string)json_encode($result, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE));
 
         return $response;
     }

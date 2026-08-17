@@ -16,6 +16,7 @@ use SyntaxOOps\PluploadBE\Service\AssetLoaderService;
 use SyntaxOOps\PluploadBE\Utility\ConfigurationUtility;
 use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
 use SyntaxOOps\PluploadBE\Utility\SizeUtility;
+use TYPO3\CMS\Backend\Template\Components\Buttons\LinkButton;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
@@ -24,7 +25,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
-use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Page\AssetCollector;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -44,14 +45,14 @@ class UploadController extends ActionController
      * @param ModuleTemplateFactory $moduleTemplateFactory
      * @param IconFactory $iconFactory
      * @param AssetLoaderService $assetLoaderService
-     * @param PageRenderer $pageRenderer
+     * @param AssetCollector $assetCollector
      */
     public function __construct(
         private readonly Context $context,
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         protected readonly IconFactory $iconFactory,
         protected AssetLoaderService $assetLoaderService,
-        protected PageRenderer $pageRenderer
+        protected AssetCollector $assetCollector
     ) {}
 
     public function initializeAction(): void
@@ -70,15 +71,13 @@ class UploadController extends ActionController
 
     protected function setDocHeader(): void
     {
-        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
-
         if ($this->returnUrl) {
-            $backButton = $buttonBar->makeLinkButton()
+            $backButton = GeneralUtility::makeInstance(LinkButton::class)
                 ->setHref($this->returnUrl)
                 ->setTitle(LocalizationUtility::translate('upload.back'))
                 ->setShowLabelText(true)
                 ->setIcon($this->iconFactory->getIcon('actions-caret-left', IconSize::SMALL));
-            $buttonBar->addButton($backButton);
+            $this->moduleTemplate->getDocHeaderComponent()->getButtonBar()->addButton($backButton);
         }
     }
 
@@ -97,7 +96,7 @@ class UploadController extends ActionController
 
         $maxSize = $configuration['file']['maxSize'];
         if (empty($maxSize)) {
-            $maxSize = SizeUtility::getBytes(ini_get('upload_max_filesize'));
+            $maxSize = SizeUtility::getBytes((string)ini_get('upload_max_filesize'));
         }
 
         $chunkSize = empty($configuration['file']['chunkSize']) ? $maxSize : (int)$configuration['file']['chunkSize'];
@@ -107,7 +106,8 @@ class UploadController extends ActionController
         $resizeEnabled = $configuration['image']['autoresizeMode'] == 1;
         unset($configuration['image']['autoresizeMode']);
 
-        $storageId = (string)($request->getParsedBody()['id'] ?? $this->request->getQueryParams()['id'] ?? null);
+        $parsedBody = (array)$request->getParsedBody();
+        $storageId = (string)($parsedBody['id'] ?? $request->getQueryParams()['id'] ?? '');
 
         $chunkSize = empty($chunkSize) ? $maxSize : $chunkSize;
         $maxFileSize = round($maxSize / (1024 * 1024), 2);
@@ -143,12 +143,11 @@ class UploadController extends ActionController
             ],
         ];
 
-        $this->pageRenderer->addJsInlineCode(
+        $this->assetCollector->addInlineJavaScript(
             'plupload-settings',
             'var Plupload_BE = ' . json_encode($pluploadSettings, JSON_FORCE_OBJECT) . ';',
-            true,
-            true,
-            true
+            [],
+            ['priority' => true]
         );
 
         return $this->moduleTemplate->renderResponse('Upload/Index');
@@ -156,8 +155,9 @@ class UploadController extends ActionController
 
     private function setReturnUrl(): void
     {
-        $this->returnUrl = (string)($this->request->getParsedBody()['returnUrl']
+        $parsedBody = (array)$this->request->getParsedBody();
+        $this->returnUrl = (string)($parsedBody['returnUrl']
             ?? $this->request->getQueryParams()['returnUrl']
-            ?? null);
+            ?? '');
     }
 }

@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 namespace SyntaxOOps\PluploadBE\Exception;
 
-use InvalidArgumentException;
 use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
 
 /**
@@ -19,7 +18,7 @@ use SyntaxOOps\PluploadBE\Utility\LocalizationUtility;
  *
  * @author  Haythem Daoud <haythemdaoud.x@gmail.com>
  */
-class FileAlreadyExistsException extends InvalidArgumentException
+class FileAlreadyExistsException extends \InvalidArgumentException
 {
     public function __construct(string $path)
     {
