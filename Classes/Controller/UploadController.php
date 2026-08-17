@@ -147,7 +147,7 @@ class UploadController extends ActionController
             'plupload-settings',
             'var Plupload_BE = ' . json_encode($pluploadSettings, JSON_FORCE_OBJECT) . ';',
             [],
-            ['priority' => true]
+            ['priority' => true, 'csp' => true]
         );
 
         return $this->moduleTemplate->renderResponse('Upload/Index');
