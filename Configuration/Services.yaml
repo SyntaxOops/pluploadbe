@@ -13,3 +13,8 @@ services:
           - name: 'console.command'
             command: 'pluploadbe:cleanup'
             description: 'Remove broken files after upload'
+
+  SyntaxOOps\PluploadBE\EventListener\AddUploadButtonToFileListEventListener:
+      tags:
+          - name: 'event.listener'
+            identifier: 'pluploadbe/add-upload-button-to-file-list'

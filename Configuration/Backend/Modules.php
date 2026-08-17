@@ -2,14 +2,19 @@
 
 use SyntaxOOps\PluploadBE\Controller\UploadAjaxController;
 use SyntaxOOps\PluploadBE\Controller\UploadController;
+use TYPO3\CMS\Core\Information\Typo3Version;
+
+$typo3Version = new Typo3Version();
 
 return [
     'Plupload_BE' => [
-        'parent' => 'file',
-        'position' => 'hidden',
-        'access' => 'user,group',
+        'parent' => $typo3Version->getMajorVersion() >= 14 ? 'media' : 'file',
+        'access' => 'user',
         'workspaces' => 'live',
         'path' => '/module/file/PluploadBE/',
+        'appearance' => [
+            'renderInModuleMenu' => false,
+        ],
         'extensionName' => 'pluploadbe',
         'controllerActions' => [
             UploadController::class => [

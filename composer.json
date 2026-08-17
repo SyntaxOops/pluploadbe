@@ -18,18 +18,24 @@
         "GPL-3.0-or-later"
     ],
     "require": {
-        "php": ">= 8.2 < 8.4",
-        "typo3/cms-core": "^13.0 || dev-main"
+        "php": "^8.2",
+        "typo3/cms-backend": "^13.0 || ^14.0",
+        "typo3/cms-core": "^13.0 || ^14.0",
+        "typo3/cms-extbase": "^13.0 || ^14.0",
+        "typo3/cms-filelist": "^13.0 || ^14.0",
+        "typo3/cms-fluid": "^13.0 || ^14.0"
     },
     "suggest": {
         "causal/image_autoresize": "Resize images automatically"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "php-parallel-lint/php-parallel-lint": "^1.4",
         "phpstan/phpdoc-parser": "^2.2.0",
-        "typo3/testing-framework": "^9.2.0",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^11.5.33",
         "typo3/coding-standards": "^0.8.0",
-        "friendsofphp/php-cs-fixer": "^3.86.0"
+        "typo3/testing-framework": "^9.6.1"
     },
     "autoload": {
         "psr-4": {
@@ -47,19 +53,35 @@
     "config": {
         "vendor-dir": ".Build/vendor",
         "bin-dir": ".Build/bin",
+        "platform": {
+            "php": "8.2.0"
+        },
         "allow-plugins": {
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true
-        }
+        },
+        "sort-packages": true
     },
     "scripts": {
-        "post-install-cmd":  [
+        "post-install-cmd": [
             "chmod +x .githooks/pre-commit",
-            "git init",
             "git config --local core.hooksPath .githooks/"
         ],
-        "php:cs": "php-cs-fixer fix --config=Build/php-cs-fixer.php -v --dry-run --using-cache no --diff",
-        "php:fix": "php-cs-fixer fix --config=Build/php-cs-fixer.php"
+        "post-update-cmd": [
+            "chmod +x .githooks/pre-commit",
+            "git config --local core.hooksPath .githooks/"
+        ],
+        "composer:validate": "@composer validate --strict",
+        "php:lint": "parallel-lint --exclude .Build --exclude var .",
+        "php:cs": "php-cs-fixer fix --config=Build/php-cs-fixer.php --dry-run --diff --using-cache=no",
+        "php:fix": "php-cs-fixer fix --config=Build/php-cs-fixer.php",
+        "php:stan": "phpstan analyse --configuration=Build/phpstan.neon --no-progress --memory-limit=1G",
+        "ci": [
+            "@composer:validate",
+            "@php:lint",
+            "@php:cs",
+            "@php:stan"
+        ]
     },
     "extra": {
         "typo3/cms": {

@@ -25,10 +25,10 @@ class SizeUtility
     public static function getBytes(string $input): int
     {
         // Extract the unit (e.g., KB, MB, GB)
-        $unit = strtolower(preg_replace('/[^a-zA-Z]/', '', $input));
+        $unit = strtolower((string)preg_replace('/[^a-zA-Z]/', '', $input));
 
         // Extract the numeric value
-        $value = (float)preg_replace('/[^0-9\.]/', '', $input);
+        $value = (float)(string)preg_replace('/[^0-9\.]/', '', $input);
 
         switch ($unit) {
             case 'p':    // Petabyte

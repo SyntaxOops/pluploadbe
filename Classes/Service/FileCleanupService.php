@@ -42,21 +42,21 @@ class FileCleanupService
         $stale = $this->getStale($age);
 
         foreach ($stale as $file) {
-            $fileObject = $resourceFactory->getFileObject($file['uid']);
+            $fileObject = $resourceFactory->getFileObject((int)$file['uid']);
             $fileObject->delete();
         }
     }
 
     /**
      * @param int $age
-     * @return array
+     * @return list<array{uid: int}>
      * @throws Exception
      */
     protected function getStale(int $age): array
     {
         $queryBuilder = $this->getQueryBuilder();
 
-        return $queryBuilder
+        $rows = $queryBuilder
             ->select('uid')
             ->from($this->table)
             ->where(
@@ -71,6 +71,11 @@ class FileCleanupService
             )
             ->executeQuery()
             ->fetchAllAssociative();
+
+        return array_map(
+            static fn(array $row): array => ['uid' => (int)$row['uid']],
+            $rows
+        );
     }
 
     /**

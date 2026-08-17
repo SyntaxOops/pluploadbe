@@ -23,7 +23,7 @@ class ImageAutoresizeUtility
     protected static string $default = 'jpg,jpeg,png,ai,bmp,pcx,tga,tif,tiff';
 
     /**
-     * @return array
+     * @return list<string>
      */
     public static function getExtensions(): array
     {
