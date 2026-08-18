@@ -11,7 +11,8 @@
     "authors": [
         {
             "name": "Haythem Daoud",
-            "role": "TYPO3 Backend Developer"
+            "role": "Senior TYPO3 Backend Developer",
+            "email": "hello@haythemdaoud.dev"
         }
     ],
     "license": [
@@ -86,7 +87,11 @@
     "extra": {
         "typo3/cms": {
             "extension-key": "pluploadbe",
-            "web-dir": ".Build/Web"
+            "version": "14.0.3",
+            "web-dir": ".Build/Web",
+            "Package": {
+                "providesPackages": {}
+            }
         }
     }
 }
